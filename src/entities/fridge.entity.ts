@@ -3,31 +3,22 @@ import {
   Collection,
   Entity,
   ManyToMany,
-  ManyToOne,
-  OneToMany,
   PrimaryKey,
   Property,
 } from "@mikro-orm/core";
 import { randomUUID } from "node:crypto";
 import { Product } from "./product.entity.js";
-import { Recipe } from "./recipe.entity.js";
 @Entity()
-export class User extends BaseEntity<User, "id"> {
+export class Fridge extends BaseEntity<Fridge, "id"> {
   @PrimaryKey({ columnType: "uuid" })
   public id: string = randomUUID();
 
   @Property()
-  public name: string;
-
-  @Property({ unique: true })
-  public email: string;
+  public location: string;
 
   @Property()
-  public password: string;
+  public capacity: string;
 
   @ManyToMany(() => Product)
   public products = new Collection<Product>(this);
-
-  @OneToMany(() => Recipe, (recipe) => recipe.user)
-  public recipes = new Collection<Recipe>(this);
 }

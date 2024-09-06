@@ -18,7 +18,7 @@ export default {
     emit: "ts",
   },
   type: "postgresql",
-  entities: [path.join(process.cwd(), "**", "*.entity.ts")],
+  entities: [path.join(process.cwd(), "**", "*.entity.js")],
   user: config.postgres.user,
   password: config.postgres.password,
   dbName: config.postgres.db,

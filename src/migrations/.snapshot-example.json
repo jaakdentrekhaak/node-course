@@ -15,6 +15,154 @@
           "nullable": false,
           "mappedType": "uuid"
         },
+        "location": {
+          "name": "location",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "capacity": {
+          "name": "capacity",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        }
+      },
+      "name": "fridge",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "fridge_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "size": {
+          "name": "size",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "product",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "product_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "fridge_id": {
+          "name": "fridge_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "product_id": {
+          "name": "product_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "fridge_products",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "fridge_products_pkey",
+          "columnNames": [
+            "fridge_id",
+            "product_id"
+          ],
+          "composite": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "fridge_products_fridge_id_foreign": {
+          "constraintName": "fridge_products_fridge_id_foreign",
+          "columnNames": [
+            "fridge_id"
+          ],
+          "localTableName": "public.fridge_products",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.fridge",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        },
+        "fridge_products_product_id_foreign": {
+          "constraintName": "fridge_products_product_id_foreign",
+          "columnNames": [
+            "product_id"
+          ],
+          "localTableName": "public.fridge_products",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.product",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
         "name": {
           "name": "name",
           "type": "varchar(255)",
@@ -67,6 +215,204 @@
       ],
       "checks": [],
       "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "recipe",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "recipe_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "recipe_user_id_foreign": {
+          "constraintName": "recipe_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.recipe",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.user",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "recipe_id": {
+          "name": "recipe_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "product_id": {
+          "name": "product_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "recipe_ingredients",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "recipe_ingredients_pkey",
+          "columnNames": [
+            "recipe_id",
+            "product_id"
+          ],
+          "composite": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "recipe_ingredients_recipe_id_foreign": {
+          "constraintName": "recipe_ingredients_recipe_id_foreign",
+          "columnNames": [
+            "recipe_id"
+          ],
+          "localTableName": "public.recipe_ingredients",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.recipe",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        },
+        "recipe_ingredients_product_id_foreign": {
+          "constraintName": "recipe_ingredients_product_id_foreign",
+          "columnNames": [
+            "product_id"
+          ],
+          "localTableName": "public.recipe_ingredients",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.product",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "product_id": {
+          "name": "product_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "user_products",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "user_products_pkey",
+          "columnNames": [
+            "user_id",
+            "product_id"
+          ],
+          "composite": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "user_products_user_id_foreign": {
+          "constraintName": "user_products_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.user_products",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.user",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        },
+        "user_products_product_id_foreign": {
+          "constraintName": "user_products_product_id_foreign",
+          "columnNames": [
+            "product_id"
+          ],
+          "localTableName": "public.user_products",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.product",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        }
+      }
     }
   ]
 }

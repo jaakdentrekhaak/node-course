@@ -15,6 +15,7 @@ import { routingControllersToSpec } from "routing-controllers-openapi";
 import { MikroORM, RequestContext } from "@mikro-orm/core";
 import { PostgreSqlDriver } from "@mikro-orm/postgresql";
 import ormConfig from "./orm.config.js";
+import { ProductController } from "./controllers/products/product.controller.js";
 
 export class App {
   host: Application;
@@ -37,7 +38,11 @@ export class App {
       RequestContext.create(this.orm.em, next);
     });
 
-    this.initializeControllers([AuthController, UserController]);
+    this.initializeControllers([
+      AuthController,
+      UserController,
+      ProductController,
+    ]);
 
     this.host.use(errorMiddleware);
 
