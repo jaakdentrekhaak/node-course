@@ -20,6 +20,8 @@ import { ProductBody } from "../../contracts/product.body.js";
 import { create } from "./handlers/create.handler.js";
 import { FridgeView } from "../../contracts/fridge.view.js";
 import { FridgeBody } from "../../contracts/fridge.body.js";
+import { getProductsForUserFridgeBody } from "../../contracts/getProductsForUser.fridge.body.js";
+import { getProductsForUser } from "./handlers/getProductsForUser.handler.js";
 
 @JsonController("/fridges")
 export class FridgeController {
@@ -30,12 +32,14 @@ export class FridgeController {
     return create(body);
   }
 
-  // @Get()
-  // @ListRepresenter(UserView)
-  // @Authorized()
-  // async getList(@Query() query: SearchQuery) {
-  //   return getList(query.search);
-  // }
+  @Get("/:id/get_products_for_user")
+  @ListRepresenter(ProductView)
+  async getProductsForUser(
+    @Body() body: getProductsForUserFridgeBody,
+    @Param("id") id: string
+  ) {
+    return await getProductsForUser(body, id);
+  }
 
   // @Get("/:id")
   // @Representer(UserView)
