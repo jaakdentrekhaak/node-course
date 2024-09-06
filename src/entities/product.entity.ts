@@ -1,14 +1,15 @@
 import {
   BaseEntity,
-  Collection,
   Entity,
-  ManyToMany,
+  ManyToOne,
   PrimaryKey,
   Property,
 } from "@mikro-orm/core";
+import type { Rel } from "@mikro-orm/core";
 import { randomUUID } from "node:crypto";
 import { User } from "./user.entity.js";
 import { Fridge } from "./fridge.entity.js";
+import { Recipe } from "./recipe.entity.js";
 @Entity()
 export class Product extends BaseEntity<Product, "id"> {
   @PrimaryKey({ columnType: "uuid" })
@@ -17,9 +18,12 @@ export class Product extends BaseEntity<Product, "id"> {
   @Property()
   public size: number;
 
-  @ManyToMany(() => User, (user) => user.products)
-  public users = new Collection<User>(this);
+  @ManyToOne(() => User, { nullable: true })
+  public user: Rel<User>;
 
-  @ManyToMany(() => Fridge, (fridge) => fridge.products)
-  public fridges = new Collection<Fridge>(this);
+  @ManyToOne(() => Fridge, { nullable: true })
+  public fridge?: Rel<Fridge>;
+
+  @ManyToOne(() => Recipe, { nullable: true })
+  public recipe?: Rel<Recipe>;
 }

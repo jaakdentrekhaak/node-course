@@ -26,12 +26,12 @@
         },
         "capacity": {
           "name": "capacity",
-          "type": "varchar(255)",
+          "type": "int",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "string"
+          "mappedType": "integer"
         }
       },
       "name": "fridge",
@@ -49,108 +49,6 @@
       ],
       "checks": [],
       "foreignKeys": {}
-    },
-    {
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "uuid"
-        },
-        "size": {
-          "name": "size",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
-        }
-      },
-      "name": "product",
-      "schema": "public",
-      "indexes": [
-        {
-          "keyName": "product_pkey",
-          "columnNames": [
-            "id"
-          ],
-          "composite": false,
-          "primary": true,
-          "unique": true
-        }
-      ],
-      "checks": [],
-      "foreignKeys": {}
-    },
-    {
-      "columns": {
-        "fridge_id": {
-          "name": "fridge_id",
-          "type": "uuid",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "uuid"
-        },
-        "product_id": {
-          "name": "product_id",
-          "type": "uuid",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "uuid"
-        }
-      },
-      "name": "fridge_products",
-      "schema": "public",
-      "indexes": [
-        {
-          "keyName": "fridge_products_pkey",
-          "columnNames": [
-            "fridge_id",
-            "product_id"
-          ],
-          "composite": true,
-          "primary": true,
-          "unique": true
-        }
-      ],
-      "checks": [],
-      "foreignKeys": {
-        "fridge_products_fridge_id_foreign": {
-          "constraintName": "fridge_products_fridge_id_foreign",
-          "columnNames": [
-            "fridge_id"
-          ],
-          "localTableName": "public.fridge_products",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.fridge",
-          "deleteRule": "cascade",
-          "updateRule": "cascade"
-        },
-        "fridge_products_product_id_foreign": {
-          "constraintName": "fridge_products_product_id_foreign",
-          "columnNames": [
-            "product_id"
-          ],
-          "localTableName": "public.fridge_products",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.product",
-          "deleteRule": "cascade",
-          "updateRule": "cascade"
-        }
-      }
     },
     {
       "columns": {
@@ -286,8 +184,8 @@
     },
     {
       "columns": {
-        "recipe_id": {
-          "name": "recipe_id",
+        "id": {
+          "name": "id",
           "type": "uuid",
           "unsigned": false,
           "autoincrement": false,
@@ -295,121 +193,95 @@
           "nullable": false,
           "mappedType": "uuid"
         },
-        "product_id": {
-          "name": "product_id",
-          "type": "uuid",
+        "size": {
+          "name": "size",
+          "type": "int",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "uuid"
-        }
-      },
-      "name": "recipe_ingredients",
-      "schema": "public",
-      "indexes": [
-        {
-          "keyName": "recipe_ingredients_pkey",
-          "columnNames": [
-            "recipe_id",
-            "product_id"
-          ],
-          "composite": true,
-          "primary": true,
-          "unique": true
-        }
-      ],
-      "checks": [],
-      "foreignKeys": {
-        "recipe_ingredients_recipe_id_foreign": {
-          "constraintName": "recipe_ingredients_recipe_id_foreign",
-          "columnNames": [
-            "recipe_id"
-          ],
-          "localTableName": "public.recipe_ingredients",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.recipe",
-          "deleteRule": "cascade",
-          "updateRule": "cascade"
+          "mappedType": "integer"
         },
-        "recipe_ingredients_product_id_foreign": {
-          "constraintName": "recipe_ingredients_product_id_foreign",
-          "columnNames": [
-            "product_id"
-          ],
-          "localTableName": "public.recipe_ingredients",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.product",
-          "deleteRule": "cascade",
-          "updateRule": "cascade"
-        }
-      }
-    },
-    {
-      "columns": {
         "user_id": {
           "name": "user_id",
           "type": "uuid",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "uuid"
         },
-        "product_id": {
-          "name": "product_id",
+        "fridge_id": {
+          "name": "fridge_id",
           "type": "uuid",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "recipe_id": {
+          "name": "recipe_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
           "mappedType": "uuid"
         }
       },
-      "name": "user_products",
+      "name": "product",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "user_products_pkey",
+          "keyName": "product_pkey",
           "columnNames": [
-            "user_id",
-            "product_id"
+            "id"
           ],
-          "composite": true,
+          "composite": false,
           "primary": true,
           "unique": true
         }
       ],
       "checks": [],
       "foreignKeys": {
-        "user_products_user_id_foreign": {
-          "constraintName": "user_products_user_id_foreign",
+        "product_user_id_foreign": {
+          "constraintName": "product_user_id_foreign",
           "columnNames": [
             "user_id"
           ],
-          "localTableName": "public.user_products",
+          "localTableName": "public.product",
           "referencedColumnNames": [
             "id"
           ],
           "referencedTableName": "public.user",
-          "deleteRule": "cascade",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         },
-        "user_products_product_id_foreign": {
-          "constraintName": "user_products_product_id_foreign",
+        "product_fridge_id_foreign": {
+          "constraintName": "product_fridge_id_foreign",
           "columnNames": [
-            "product_id"
+            "fridge_id"
           ],
-          "localTableName": "public.user_products",
+          "localTableName": "public.product",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.product",
-          "deleteRule": "cascade",
+          "referencedTableName": "public.fridge",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        },
+        "product_recipe_id_foreign": {
+          "constraintName": "product_recipe_id_foreign",
+          "columnNames": [
+            "recipe_id"
+          ],
+          "localTableName": "public.product",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.recipe",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         }
       }

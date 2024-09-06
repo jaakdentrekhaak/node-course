@@ -18,42 +18,16 @@ import { OpenAPI } from "routing-controllers-openapi";
 import { ProductView } from "../../contracts/product.view.js";
 import { ProductBody } from "../../contracts/product.body.js";
 import { create } from "./handlers/create.handler.js";
-import { addToFridge } from "./handlers/addToFridge.handler.js";
-import { addToOrDeleteFromFridgeProductBody } from "../../contracts/addToFridge.product.body.js";
-import { deleteFromFridge } from "./handlers/deleteFromFridge.handler.js";
-import { get } from "./handlers/get.handler.js";
+import { FridgeView } from "../../contracts/fridge.view.js";
+import { FridgeBody } from "../../contracts/fridge.body.js";
 
-@JsonController("/products")
-export class ProductController {
+@JsonController("/fridges")
+export class FridgeController {
   @Post()
-  @Representer(ProductView, StatusCode.created)
-  @OpenAPI({ summary: "Create a new product" })
-  async create(@Body() body: ProductBody) {
+  @Representer(FridgeView, StatusCode.created)
+  @OpenAPI({ summary: "Create a new fridge" })
+  async create(@Body() body: FridgeBody) {
     return create(body);
-  }
-
-  @Post("/:id/fridge")
-  @Representer(ProductView)
-  async addToFridge(
-    @Body() body: addToOrDeleteFromFridgeProductBody,
-    @Param("id") id: string
-  ) {
-    return addToFridge(body, id);
-  }
-
-  @Delete("/:id/fridge")
-  @Representer(ProductView)
-  async deleteFromFridge(
-    @Body() body: addToOrDeleteFromFridgeProductBody,
-    @Param("id") id: string
-  ) {
-    return deleteFromFridge(body, id);
-  }
-
-  @Get("/:id")
-  @Representer(ProductView)
-  async get(@Param("id") id: string) {
-    return get(id);
   }
 
   // @Get()

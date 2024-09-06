@@ -2,8 +2,6 @@ import {
   BaseEntity,
   Collection,
   Entity,
-  ManyToMany,
-  ManyToOne,
   OneToMany,
   PrimaryKey,
   Property,
@@ -25,7 +23,7 @@ export class User extends BaseEntity<User, "id"> {
   @Property()
   public password: string;
 
-  @ManyToMany(() => Product)
+  @OneToMany(() => Product, (product) => product.user)
   public products = new Collection<Product>(this);
 
   @OneToMany(() => Recipe, (recipe) => recipe.user)

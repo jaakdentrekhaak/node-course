@@ -2,7 +2,7 @@ import {
   BaseEntity,
   Collection,
   Entity,
-  ManyToMany,
+  OneToMany,
   PrimaryKey,
   Property,
 } from "@mikro-orm/core";
@@ -17,8 +17,8 @@ export class Fridge extends BaseEntity<Fridge, "id"> {
   public location: string;
 
   @Property()
-  public capacity: string;
+  public capacity: number;
 
-  @ManyToMany(() => Product)
+  @OneToMany(() => Product, (product) => product.fridge)
   public products = new Collection<Product>(this);
 }

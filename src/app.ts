@@ -16,6 +16,8 @@ import { MikroORM, RequestContext } from "@mikro-orm/core";
 import { PostgreSqlDriver } from "@mikro-orm/postgresql";
 import ormConfig from "./orm.config.js";
 import { ProductController } from "./controllers/products/product.controller.js";
+import { FridgeController } from "./controllers/fridges/fridge.controller.js";
+import { RecipeController } from "./controllers/recipes/recipe.controller.js";
 
 export class App {
   host: Application;
@@ -42,6 +44,8 @@ export class App {
       AuthController,
       UserController,
       ProductController,
+      FridgeController,
+      RecipeController,
     ]);
 
     this.host.use(errorMiddleware);

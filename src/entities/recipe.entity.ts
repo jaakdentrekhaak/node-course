@@ -4,6 +4,7 @@ import {
   Entity,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryKey,
   Property,
 } from "@mikro-orm/core";
@@ -25,6 +26,6 @@ export class Recipe extends BaseEntity<Recipe, "id"> {
   @ManyToOne(() => User)
   public user: Rel<User>;
 
-  @ManyToMany(() => Product)
+  @OneToMany(() => Product, (product) => product.recipe)
   public ingredients = new Collection<Product>(this);
 }
