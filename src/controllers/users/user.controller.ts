@@ -29,7 +29,6 @@ export class UserController {
   @Post()
   @Representer(UserView, StatusCode.created)
   @OpenAPI({ summary: "Create a new user" })
-  @Authorized()
   async create(@Body() body: UserBody) {
     return create(body);
   }

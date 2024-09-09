@@ -1,10 +1,7 @@
 import { expect } from "chai";
 import { getList } from "../../controllers/users/handlers/getList.handler.js";
-import { NextFunction, Request, Response } from "express";
 import { get } from "../../controllers/users/handlers/get.handler.js";
-import { UserBody } from "../../contracts/user.body.js";
 import { create } from "../../controllers/users/handlers/create.handler.js";
-import { UserView } from "../../contracts/user.view.js";
 import { update } from "../../controllers/users/handlers/update.handler.js";
 import { deleteUser } from "../../controllers/users/handlers/delete.handler.js";
 import { User } from "../../entities/user.entity.js";
