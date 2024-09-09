@@ -20,9 +20,26 @@ import { RecipeBody } from "../../contracts/recipe.body.js";
 import { RecipeView } from "../../contracts/recipe.view.js";
 import { deleteRecipe } from "./handlers/delete.handler.js";
 import { update } from "./handlers/update.handler.js";
+import { userIdBody } from "../../contracts/userId.body.js";
+import { getForUser } from "./handlers/getForUser.handler.js";
+import { get } from "./handlers/get.handler.js";
 
 @JsonController("/recipes")
 export class RecipeController {
+  @Get("/for_user")
+  @ListRepresenter(RecipeView)
+  // @Authorized()
+  async getForUser(@Body() body: userIdBody) {
+    return getForUser(body);
+  }
+
+  @Get("/:id")
+  @Representer(RecipeView)
+  // @Authorized()
+  async get(@Param("id") id: string) {
+    return get(id);
+  }
+
   @Post()
   @Representer(RecipeView, StatusCode.created)
   @OpenAPI({ summary: "Create a new recipe" })
