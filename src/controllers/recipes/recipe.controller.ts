@@ -30,20 +30,21 @@ import { getMissingIngredients } from "./handlers/getMissingIngredients.handler.
 export class RecipeController {
   @Get("/for_user")
   @ListRepresenter(RecipeView)
-  // @Authorized()
+  @Authorized()
   async getForUser(@Body() body: userIdBody) {
     return getForUser(body);
   }
 
   @Get("/:id/get_missing_ingredients")
   @ListRepresenter(ProductView)
+  @Authorized()
   async getMissingIngredients(@Param("id") id: string) {
     return await getMissingIngredients(id);
   }
 
   @Get("/:id")
   @Representer(RecipeView)
-  // @Authorized()
+  @Authorized()
   async get(@Param("id") id: string) {
     return get(id);
   }
@@ -51,13 +52,14 @@ export class RecipeController {
   @Post()
   @Representer(RecipeView, StatusCode.created)
   @OpenAPI({ summary: "Create a new recipe" })
+  @Authorized()
   async create(@Body() body: RecipeBody) {
     return create(body);
   }
 
   @Patch("/:id")
   @Representer(RecipeView)
-  // @Authorized()
+  @Authorized()
   async update(
     @Body({}, { skipMissingProperties: true }) body: RecipeBody,
     @Param("id") id: string
@@ -67,39 +69,8 @@ export class RecipeController {
 
   @Delete("/:id")
   @Representer(null)
-  // @Authorized()
+  @Authorized()
   async delete(@Param("id") id: string) {
     return deleteRecipe(id);
   }
-
-  // @Get()
-  // @ListRepresenter(UserView)
-  // @Authorized()
-  // async getList(@Query() query: SearchQuery) {
-  //   return getList(query.search);
-  // }
-
-  // @Get("/:id")
-  // @Representer(UserView)
-  // @Authorized()
-  // async get(@Param("id") id: string) {
-  //   return get(id);
-  // }
-
-  // @Patch("/:id")
-  // @Representer(UserView)
-  // @Authorized()
-  // async update(
-  //   @Body({}, { skipMissingProperties: true }) body: UserBody,
-  //   @Param("id") id: string
-  // ) {
-  //   return update(body, id);
-  // }
-
-  // @Delete("/:id")
-  // @Representer(null)
-  // @Authorized()
-  // async delete(@Param("id") id: string) {
-  //   return deleteUser(id);
-  // }
 }

@@ -32,12 +32,14 @@ import { userBuys } from "./handlers/userBuys.handler.js";
 export class ProductController {
   @Get("/get_all_for_user_in_all_fridges")
   @ListRepresenter(ProductView)
+  @Authorized()
   async getAllForUserInAllFridges(@Body() body: userIdBody) {
     return await getAllForUserInAllFridges(body);
   }
 
   @Get("/get_all_for_user_in_all_fridges_with_location")
   @ListRepresenter(ProductView)
+  @Authorized()
   async getAllForUserInAllFridgesWithLocation(
     @Body() body: userIdFridgeLocationBody
   ) {
@@ -46,6 +48,7 @@ export class ProductController {
 
   @Get("/:id")
   @Representer(ProductView)
+  @Authorized()
   async get(@Param("id") id: string) {
     return get(id);
   }
@@ -53,12 +56,14 @@ export class ProductController {
   @Post()
   @Representer(ProductView, StatusCode.created)
   @OpenAPI({ summary: "Create a new product" })
+  @Authorized()
   async create(@Body() body: ProductBody) {
     return create(body);
   }
 
   @Post("/:id/fridge")
   @Representer(ProductView)
+  @Authorized()
   async addToFridge(
     @Body() body: addToOrDeleteFromFridgeProductBody,
     @Param("id") id: string
@@ -68,12 +73,14 @@ export class ProductController {
 
   @Patch("/:id/user_buys")
   @Representer(ProductView)
+  @Authorized()
   async userBuys(@Body() body: userIdBody, @Param("id") id: string) {
     return userBuys(body, id);
   }
 
   @Delete("/:id/fridge")
   @Representer(ProductView)
+  @Authorized()
   async deleteFromFridge(
     @Body() body: addToOrDeleteFromFridgeProductBody,
     @Param("id") id: string

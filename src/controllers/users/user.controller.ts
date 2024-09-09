@@ -29,27 +29,28 @@ export class UserController {
   @Post()
   @Representer(UserView, StatusCode.created)
   @OpenAPI({ summary: "Create a new user" })
+  @Authorized()
   async create(@Body() body: UserBody) {
     return create(body);
   }
 
   @Get()
   @ListRepresenter(UserView)
-  // @Authorized()
+  @Authorized()
   async getList(@Query() query: SearchQuery) {
     return getList(query.search);
   }
 
   @Get("/:id")
   @Representer(UserView)
-  // @Authorized()
+  @Authorized()
   async get(@Param("id") id: string) {
     return get(id);
   }
 
   @Patch("/:id")
   @Representer(UserView)
-  // @Authorized()
+  @Authorized()
   async update(
     @Body({}, { skipMissingProperties: true }) body: UserBody,
     @Param("id") id: string
@@ -59,7 +60,7 @@ export class UserController {
 
   @Delete("/:id")
   @Representer(null)
-  // @Authorized()
+  @Authorized()
   async delete(@Param("id") id: string) {
     return deleteUser(id);
   }

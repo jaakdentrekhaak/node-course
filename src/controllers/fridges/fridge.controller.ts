@@ -28,40 +28,18 @@ export class FridgeController {
   @Post()
   @Representer(FridgeView, StatusCode.created)
   @OpenAPI({ summary: "Create a new fridge" })
+  @Authorized()
   async create(@Body() body: FridgeBody) {
     return create(body);
   }
 
   @Get("/:id/get_products_for_user")
   @ListRepresenter(ProductView)
+  @Authorized()
   async getProductsForUser(
     @Body() body: getProductsForUserFridgeBody,
     @Param("id") id: string
   ) {
     return await getProductsForUser(body, id);
   }
-
-  // @Get("/:id")
-  // @Representer(UserView)
-  // @Authorized()
-  // async get(@Param("id") id: string) {
-  //   return get(id);
-  // }
-
-  // @Patch("/:id")
-  // @Representer(UserView)
-  // @Authorized()
-  // async update(
-  //   @Body({}, { skipMissingProperties: true }) body: UserBody,
-  //   @Param("id") id: string
-  // ) {
-  //   return update(body, id);
-  // }
-
-  // @Delete("/:id")
-  // @Representer(null)
-  // @Authorized()
-  // async delete(@Param("id") id: string) {
-  //   return deleteUser(id);
-  // }
 }
