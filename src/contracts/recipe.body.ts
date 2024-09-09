@@ -1,5 +1,5 @@
 import { Exclude, Expose } from "class-transformer";
-import { IsNumber, IsString, IsUUID } from "class-validator";
+import { IsArray, IsOptional, IsString, IsUUID } from "class-validator";
 
 @Exclude()
 export class RecipeBody {
@@ -14,4 +14,9 @@ export class RecipeBody {
   @Expose()
   @IsUUID()
   public user: string;
+
+  @Expose()
+  @IsArray()
+  @IsOptional()
+  public ingredients: string[];
 }

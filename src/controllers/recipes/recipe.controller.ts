@@ -18,6 +18,8 @@ import { OpenAPI } from "routing-controllers-openapi";
 import { create } from "./handlers/create.handler.js";
 import { RecipeBody } from "../../contracts/recipe.body.js";
 import { RecipeView } from "../../contracts/recipe.view.js";
+import { deleteRecipe } from "./handlers/delete.handler.js";
+import { update } from "./handlers/update.handler.js";
 
 @JsonController("/recipes")
 export class RecipeController {
@@ -26,6 +28,23 @@ export class RecipeController {
   @OpenAPI({ summary: "Create a new recipe" })
   async create(@Body() body: RecipeBody) {
     return create(body);
+  }
+
+  @Patch("/:id")
+  @Representer(RecipeView)
+  // @Authorized()
+  async update(
+    @Body({}, { skipMissingProperties: true }) body: RecipeBody,
+    @Param("id") id: string
+  ) {
+    return update(body, id);
+  }
+
+  @Delete("/:id")
+  @Representer(null)
+  // @Authorized()
+  async delete(@Param("id") id: string) {
+    return deleteRecipe(id);
   }
 
   // @Get()

@@ -1,6 +1,4 @@
 import { RequestContext } from "@mikro-orm/core";
-import { ProductBody } from "../../../contracts/product.body.js";
-import { Product } from "../../../entities/product.entity.js";
 import { RecipeBody } from "../../../contracts/recipe.body.js";
 import { Recipe } from "../../../entities/recipe.entity.js";
 

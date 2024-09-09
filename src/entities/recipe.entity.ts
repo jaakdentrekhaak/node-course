@@ -2,7 +2,6 @@ import {
   BaseEntity,
   Collection,
   Entity,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryKey,
