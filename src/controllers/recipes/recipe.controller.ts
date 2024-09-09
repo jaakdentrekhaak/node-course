@@ -23,6 +23,8 @@ import { update } from "./handlers/update.handler.js";
 import { userIdBody } from "../../contracts/userId.body.js";
 import { getForUser } from "./handlers/getForUser.handler.js";
 import { get } from "./handlers/get.handler.js";
+import { ProductView } from "../../contracts/product.view.js";
+import { getMissingIngredients } from "./handlers/getMissingIngredients.handler.js";
 
 @JsonController("/recipes")
 export class RecipeController {
@@ -31,6 +33,12 @@ export class RecipeController {
   // @Authorized()
   async getForUser(@Body() body: userIdBody) {
     return getForUser(body);
+  }
+
+  @Get("/:id/get_missing_ingredients")
+  @ListRepresenter(ProductView)
+  async getMissingIngredients(@Param("id") id: string) {
+    return await getMissingIngredients(id);
   }
 
   @Get("/:id")

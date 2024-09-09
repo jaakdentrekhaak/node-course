@@ -26,6 +26,7 @@ import { userIdBody } from "../../contracts/userId.body.js";
 import { getAllForUserInAllFridges } from "./handlers/getAllForUserInAllFridges.handler.js";
 import { userIdFridgeLocationBody } from "../../contracts/userIdFridgeLocation.body.js";
 import { getAllForUserInAllFridgesWithLocation } from "./handlers/getAllForUserInAllFridgesWithLocation.handler.js";
+import { userBuys } from "./handlers/userBuys.handler.js";
 
 @JsonController("/products")
 export class ProductController {
@@ -63,6 +64,12 @@ export class ProductController {
     @Param("id") id: string
   ) {
     return addToFridge(body, id);
+  }
+
+  @Patch("/:id/user_buys")
+  @Representer(ProductView)
+  async userBuys(@Body() body: userIdBody, @Param("id") id: string) {
+    return userBuys(body, id);
   }
 
   @Delete("/:id/fridge")
