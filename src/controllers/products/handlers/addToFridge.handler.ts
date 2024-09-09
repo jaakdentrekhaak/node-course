@@ -16,6 +16,12 @@ export const addToFridge = async (
   if (!product) {
     throw new NotFound("productNotFound", "Product not found");
   }
+
+  // TODO: return error if product doesn't fit in the fridge
+  // Get all products in fridge
+  // Count sizes of products
+  // Check if sum of sizes of existing products and the new product exceeds the fridge's capacity
+
   product.assign(body);
   await em.flush();
   return product;

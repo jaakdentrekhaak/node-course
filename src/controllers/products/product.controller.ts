@@ -24,9 +24,31 @@ import { deleteFromFridge } from "./handlers/deleteFromFridge.handler.js";
 import { get } from "./handlers/get.handler.js";
 import { userIdBody } from "../../contracts/userId.body.js";
 import { getAllForUserInAllFridges } from "./handlers/getAllForUserInAllFridges.handler.js";
+import { userIdFridgeLocationBody } from "../../contracts/userIdFridgeLocation.body.js";
+import { getAllForUserInAllFridgesWithLocation } from "./handlers/getAllForUserInAllFridgesWithLocation.handler.js";
 
 @JsonController("/products")
 export class ProductController {
+  @Get("/get_all_for_user_in_all_fridges")
+  @ListRepresenter(ProductView)
+  async getAllForUserInAllFridges(@Body() body: userIdBody) {
+    return await getAllForUserInAllFridges(body);
+  }
+
+  @Get("/get_all_for_user_in_all_fridges_with_location")
+  @ListRepresenter(ProductView)
+  async getAllForUserInAllFridgesWithLocation(
+    @Body() body: userIdFridgeLocationBody
+  ) {
+    return await getAllForUserInAllFridgesWithLocation(body);
+  }
+
+  @Get("/:id")
+  @Representer(ProductView)
+  async get(@Param("id") id: string) {
+    return get(id);
+  }
+
   @Post()
   @Representer(ProductView, StatusCode.created)
   @OpenAPI({ summary: "Create a new product" })
@@ -51,47 +73,4 @@ export class ProductController {
   ) {
     return deleteFromFridge(body, id);
   }
-
-  @Get("/get_all_for_user_in_all_fridges")
-  @ListRepresenter(ProductView)
-  async getAllForUserInAllFridges(@Body() body: userIdBody) {
-    return await getAllForUserInAllFridges(body);
-  }
-
-  @Get("/:id")
-  @Representer(ProductView)
-  async get(@Param("id") id: string) {
-    return get(id);
-  }
-
-  // @Get()
-  // @ListRepresenter(UserView)
-  // @Authorized()
-  // async getList(@Query() query: SearchQuery) {
-  //   return getList(query.search);
-  // }
-
-  // @Get("/:id")
-  // @Representer(UserView)
-  // @Authorized()
-  // async get(@Param("id") id: string) {
-  //   return get(id);
-  // }
-
-  // @Patch("/:id")
-  // @Representer(UserView)
-  // @Authorized()
-  // async update(
-  //   @Body({}, { skipMissingProperties: true }) body: UserBody,
-  //   @Param("id") id: string
-  // ) {
-  //   return update(body, id);
-  // }
-
-  // @Delete("/:id")
-  // @Representer(null)
-  // @Authorized()
-  // async delete(@Param("id") id: string) {
-  //   return deleteUser(id);
-  // }
 }
