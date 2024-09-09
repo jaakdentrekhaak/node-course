@@ -1,10 +1,7 @@
-import { UserBody } from "../../../contracts/user.body.js";
 import { NotFound } from "@panenco/papi";
 import { RequestContext } from "@mikro-orm/core";
-import { User } from "../../../entities/user.entity.js";
-import { ProductBody } from "../../../contracts/product.body.js";
 import { Product } from "../../../entities/product.entity.js";
-import { addToOrDeleteFromFridgeProductBody } from "../../../contracts/addToFridge.product.body.js";
+import { addToOrDeleteFromFridgeProductBody } from "../../../contracts/addToOrDeleteFromFridge.product.body.js";
 
 export const addToFridge = async (
   body: addToOrDeleteFromFridgeProductBody,

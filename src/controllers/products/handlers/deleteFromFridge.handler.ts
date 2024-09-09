@@ -1,7 +1,7 @@
 import { NotFound } from "@panenco/papi";
 import { RequestContext } from "@mikro-orm/core";
 import { Product } from "../../../entities/product.entity.js";
-import { addToOrDeleteFromFridgeProductBody } from "../../../contracts/addToFridge.product.body.js";
+import { addToOrDeleteFromFridgeProductBody } from "../../../contracts/addToOrDeleteFromFridge.product.body.js";
 
 export const deleteFromFridge = async (
   body: addToOrDeleteFromFridgeProductBody,

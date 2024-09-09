@@ -19,9 +19,11 @@ import { ProductView } from "../../contracts/product.view.js";
 import { ProductBody } from "../../contracts/product.body.js";
 import { create } from "./handlers/create.handler.js";
 import { addToFridge } from "./handlers/addToFridge.handler.js";
-import { addToOrDeleteFromFridgeProductBody } from "../../contracts/addToFridge.product.body.js";
+import { addToOrDeleteFromFridgeProductBody } from "../../contracts/addToOrDeleteFromFridge.product.body.js";
 import { deleteFromFridge } from "./handlers/deleteFromFridge.handler.js";
 import { get } from "./handlers/get.handler.js";
+import { userIdBody } from "../../contracts/userId.body.js";
+import { getAllForUserInAllFridges } from "./handlers/getAllForUserInAllFridges.handler.js";
 
 @JsonController("/products")
 export class ProductController {
@@ -48,6 +50,12 @@ export class ProductController {
     @Param("id") id: string
   ) {
     return deleteFromFridge(body, id);
+  }
+
+  @Get("/get_all_for_user_in_all_fridges")
+  @ListRepresenter(ProductView)
+  async getAllForUserInAllFridges(@Body() body: userIdBody) {
+    return await getAllForUserInAllFridges(body);
   }
 
   @Get("/:id")
