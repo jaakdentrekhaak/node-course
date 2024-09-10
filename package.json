@@ -10,7 +10,8 @@
     "start": "node build/server.js",
     "dev": "concurrently 'pnpm run watch' 'node --watch build/server.js'",
     "test": "SWCRC=true NODE_OPTIONS='--loader @swc-node/register/esm' mocha ./src/tests/**/*.test.ts",
-    "test_integration": "SWCRC=true NODE_OPTIONS='--loader @swc-node/register/esm' mocha ./src/tests/integration/*.test.ts"
+    "test_integration": "SWCRC=true NODE_OPTIONS='--loader @swc-node/register/esm' mocha ./src/tests/integration/*.test.ts",
+    "test_handlers": "SWCRC=true NODE_OPTIONS='--loader @swc-node/register/esm' mocha ./src/tests/handlers/*.test.ts"
   },
   "keywords": [],
   "author": "",

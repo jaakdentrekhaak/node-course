@@ -6,13 +6,17 @@ import { Fridge } from "../../entities/fridge.entity.js";
 import { expect } from "chai";
 import { addToFridge } from "../../controllers/products/handlers/addToFridge.handler.js";
 import { addToOrDeleteFromFridgeProductBody } from "../../contracts/addToOrDeleteFromFridge.product.body.js";
+import { create } from "../../controllers/products/handlers/create.handler.js";
+import { ProductBody } from "../../contracts/product.body.js";
 
 const productFixtures: Product[] = [
   {
     size: 10,
+    name: "banana",
   } as Product,
   {
     size: 30,
+    name: "cheesecake",
   } as Product,
 ];
 
@@ -76,6 +80,53 @@ describe("Handler tests", () => {
             .map((product) => product.id)
             .includes(randomProduct.id)
         ).true;
+      });
+    });
+
+    it("add product to fridge: limit exceeded", async () => {
+      await RequestContext.createAsync(orm.em.fork(), async () => {
+        const randomFridge = await orm.em.findOne(
+          Fridge,
+          {
+            id: { $ne: null },
+          },
+          { populate: ["products"] }
+        );
+
+        const bigProduct = await create({
+          size: 150,
+          name: "dikke pannenkoek",
+        } as ProductBody);
+
+        expect(
+          randomFridge.products
+            .getItems()
+            .map((product) => product.id)
+            .includes(bigProduct.id)
+        ).false;
+
+        const body: addToOrDeleteFromFridgeProductBody = {
+          fridge: randomFridge.id,
+        };
+
+        try {
+          const res = await addToFridge(body, bigProduct.id);
+        } catch (e) {
+          expect(e.reason).equal("capacityExceeded");
+        }
+
+        const randomFridgeUpdated = await orm.em.findOne(
+          Fridge,
+          { id: randomFridge.id },
+          { populate: ["products"] }
+        );
+
+        expect(
+          randomFridge.products
+            .getItems()
+            .map((product) => product.id)
+            .includes(bigProduct.id)
+        ).false;
       });
     });
   });
