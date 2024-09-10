@@ -1,5 +1,5 @@
 import { Exclude, Expose } from "class-transformer";
-import { IsNumber } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 
 @Exclude()
 export class ProductView {
@@ -10,4 +10,8 @@ export class ProductView {
   @Expose()
   @IsNumber()
   public size: number;
+
+  @Expose()
+  @IsString()
+  public name: string;
 }

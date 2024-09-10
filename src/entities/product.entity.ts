@@ -18,6 +18,9 @@ export class Product extends BaseEntity<Product, "id"> {
   @Property()
   public size: number;
 
+  @Property()
+  public name: string;
+
   @ManyToOne(() => User, { nullable: true })
   public user: Rel<User>;
 

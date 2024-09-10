@@ -15,6 +15,10 @@ export class ProductBody {
   public size: number;
 
   @Expose()
+  @IsString()
+  public name: string;
+
+  @Expose()
   @IsUUID()
   @IsOptional()
   public user?: string;

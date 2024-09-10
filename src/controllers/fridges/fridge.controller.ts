@@ -22,6 +22,8 @@ import { FridgeView } from "../../contracts/fridge.view.js";
 import { FridgeBody } from "../../contracts/fridge.body.js";
 import { getProductsForUserFridgeBody } from "../../contracts/getProductsForUser.fridge.body.js";
 import { getProductsForUser } from "./handlers/getProductsForUser.handler.js";
+import { gptResponseView } from "../../contracts/gpt_response.view.js";
+import { getSummaryAI } from "./handlers/getSummaryAI.handler.js";
 
 @JsonController("/fridges")
 export class FridgeController {
@@ -41,5 +43,12 @@ export class FridgeController {
     @Param("id") id: string
   ) {
     return await getProductsForUser(body, id);
+  }
+
+  @Get("/:id/get_summary_ai")
+  @Representer(gptResponseView)
+  // @Authorized()
+  async getSummaryAI(@Param("id") id: string) {
+    return await getSummaryAI(id);
   }
 }
