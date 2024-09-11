@@ -33,6 +33,9 @@ export class ProductController {
   @Get("/get_all_for_user_in_all_fridges")
   @ListRepresenter(ProductView)
   @Authorized()
+  @OpenAPI({
+    summary: "Get all the products in all the fridges for a specific user",
+  })
   async getAllForUserInAllFridges(@Body() body: userIdBody) {
     return await getAllForUserInAllFridges(body);
   }
@@ -40,6 +43,10 @@ export class ProductController {
   @Get("/get_all_for_user_in_all_fridges_with_location")
   @ListRepresenter(ProductView)
   @Authorized()
+  @OpenAPI({
+    summary:
+      "Get all the products in all the fridges in a specific location for a specific user",
+  })
   async getAllForUserInAllFridgesWithLocation(
     @Body() body: userIdFridgeLocationBody
   ) {
@@ -49,13 +56,14 @@ export class ProductController {
   @Get("/:id")
   @Representer(ProductView)
   @Authorized()
+  @OpenAPI({ summary: "Get product" })
   async get(@Param("id") id: string) {
     return get(id);
   }
 
   @Post()
   @Representer(ProductView, StatusCode.created)
-  @OpenAPI({ summary: "Create a new product" })
+  @OpenAPI({ summary: "Create new product" })
   @Authorized()
   async create(@Body() body: ProductBody) {
     return create(body);
@@ -64,6 +72,7 @@ export class ProductController {
   @Post("/:id/fridge")
   @Representer(ProductView)
   @Authorized()
+  @OpenAPI({ summary: "Add this product to a fridge" })
   async addToFridge(
     @Body() body: addToOrDeleteFromFridgeProductBody,
     @Param("id") id: string
@@ -74,6 +83,7 @@ export class ProductController {
   @Patch("/:id/user_buys")
   @Representer(ProductView)
   @Authorized()
+  @OpenAPI({ summary: "User buys this product" })
   async userBuys(@Body() body: userIdBody, @Param("id") id: string) {
     return userBuys(body, id);
   }
@@ -81,6 +91,7 @@ export class ProductController {
   @Delete("/:id/fridge")
   @Representer(ProductView)
   @Authorized()
+  @OpenAPI({ summary: "Delete product from fridge" })
   async deleteFromFridge(
     @Body() body: addToOrDeleteFromFridgeProductBody,
     @Param("id") id: string

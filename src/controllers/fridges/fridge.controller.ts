@@ -29,8 +29,8 @@ import { getSummaryAI } from "./handlers/getSummaryAI.handler.js";
 export class FridgeController {
   @Post()
   @Representer(FridgeView, StatusCode.created)
-  @OpenAPI({ summary: "Create a new fridge" })
   @Authorized()
+  @OpenAPI({ summary: "Create a new fridge" })
   async create(@Body() body: FridgeBody) {
     return create(body);
   }
@@ -38,6 +38,7 @@ export class FridgeController {
   @Get("/:id/get_products_for_user")
   @ListRepresenter(ProductView)
   @Authorized()
+  @OpenAPI({ summary: "Get products for user" })
   async getProductsForUser(
     @Body() body: getProductsForUserFridgeBody,
     @Param("id") id: string
@@ -47,7 +48,8 @@ export class FridgeController {
 
   @Get("/:id/get_summary_ai")
   @Representer(gptResponseView)
-  // @Authorized()
+  @Authorized()
+  @OpenAPI({ summary: "Get AI summary of the products in the fridge" })
   async getSummaryAI(@Param("id") id: string) {
     return await getSummaryAI(id);
   }

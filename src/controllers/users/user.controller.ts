@@ -28,7 +28,7 @@ import { OpenAPI } from "routing-controllers-openapi";
 export class UserController {
   @Post()
   @Representer(UserView, StatusCode.created)
-  @OpenAPI({ summary: "Create a new user" })
+  @OpenAPI({ summary: "Create new user" })
   async create(@Body() body: UserBody) {
     return create(body);
   }
@@ -36,6 +36,7 @@ export class UserController {
   @Get()
   @ListRepresenter(UserView)
   @Authorized()
+  @OpenAPI({ summary: "Get all users" })
   async getList(@Query() query: SearchQuery) {
     return getList(query.search);
   }
@@ -43,6 +44,7 @@ export class UserController {
   @Get("/:id")
   @Representer(UserView)
   @Authorized()
+  @OpenAPI({ summary: "Get user" })
   async get(@Param("id") id: string) {
     return get(id);
   }
@@ -50,6 +52,7 @@ export class UserController {
   @Patch("/:id")
   @Representer(UserView)
   @Authorized()
+  @OpenAPI({ summary: "Update user" })
   async update(
     @Body({}, { skipMissingProperties: true }) body: UserBody,
     @Param("id") id: string
@@ -60,6 +63,7 @@ export class UserController {
   @Delete("/:id")
   @Representer(null)
   @Authorized()
+  @OpenAPI({ summary: "Delete user" })
   async delete(@Param("id") id: string) {
     return deleteUser(id);
   }

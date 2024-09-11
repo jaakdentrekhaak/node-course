@@ -31,6 +31,7 @@ export class RecipeController {
   @Get("/for_user")
   @ListRepresenter(RecipeView)
   @Authorized()
+  @OpenAPI({ summary: "Get recipes for specific user" })
   async getForUser(@Body() body: userIdBody) {
     return getForUser(body);
   }
@@ -38,6 +39,11 @@ export class RecipeController {
   @Get("/:id/get_missing_ingredients")
   @ListRepresenter(ProductView)
   @Authorized()
+  @OpenAPI({
+    summary: "Get the missing ingredients for this recipes",
+    description:
+      "Based on the products the owner of the recipe has in the fridges",
+  })
   async getMissingIngredients(@Param("id") id: string) {
     return await getMissingIngredients(id);
   }
@@ -45,14 +51,15 @@ export class RecipeController {
   @Get("/:id")
   @Representer(RecipeView)
   @Authorized()
+  @OpenAPI({ summary: "Get recipe" })
   async get(@Param("id") id: string) {
     return get(id);
   }
 
   @Post()
   @Representer(RecipeView, StatusCode.created)
-  @OpenAPI({ summary: "Create a new recipe" })
   @Authorized()
+  @OpenAPI({ summary: "Create new recipe" })
   async create(@Body() body: RecipeBody) {
     return create(body);
   }
@@ -60,6 +67,7 @@ export class RecipeController {
   @Patch("/:id")
   @Representer(RecipeView)
   @Authorized()
+  @OpenAPI({ summary: "Update recipe" })
   async update(
     @Body({}, { skipMissingProperties: true }) body: RecipeBody,
     @Param("id") id: string
@@ -70,6 +78,7 @@ export class RecipeController {
   @Delete("/:id")
   @Representer(null)
   @Authorized()
+  @OpenAPI({ summary: "Delete recipe" })
   async delete(@Param("id") id: string) {
     return deleteRecipe(id);
   }
