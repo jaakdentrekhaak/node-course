@@ -29,6 +29,14 @@ export const addToFridge = async (
     .map((product) => product.size)
     .reduce((partialSum, a) => partialSum + a, 0);
 
+  // // Can also work using an aggregate query instead (then do const em = RequestContext.getEntitiyManager() as EntityManager (that we have to import from "@mikro-orm/postgresql"))
+  // const [currentInventorySize] = await em
+  // .createQueryBuilder(Product, "product")
+  // .where({ fridge: { location: body.fridge } })
+  // .select("sum(product.size) as inventorySize")
+  // .groupBy("product.fridge_id")
+  // .execute<string[]>();
+
   if (currentInventorySize + product.size > fridge.capacity) {
     throw new BadRequest(
       "capacityExceeded",

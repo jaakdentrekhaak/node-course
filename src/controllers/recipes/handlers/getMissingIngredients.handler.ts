@@ -2,7 +2,6 @@ import { RequestContext } from "@mikro-orm/core";
 import { Recipe } from "../../../entities/recipe.entity.js";
 import { NotFound } from "@panenco/papi";
 import { getAllForUserInAllFridges } from "../../products/handlers/getAllForUserInAllFridges.handler.js";
-import { Product } from "../../../entities/product.entity.js";
 
 export const getMissingIngredients = async (id: string) => {
   const em = RequestContext.getEntityManager();

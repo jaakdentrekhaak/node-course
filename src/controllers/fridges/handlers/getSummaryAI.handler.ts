@@ -38,5 +38,5 @@ export const getSummaryAI = async (id: string) => {
     model: "gpt-3.5-turbo",
   });
   const response = responseObject.choices[0].message.content;
-  return { response: response } as gptResponseView;
+  return { response } as gptResponseView;
 };
